@@ -1,0 +1,130 @@
+import React from 'react'
+
+const App = () => {
+    const [todoinput, settodoinput] = React.useState('')
+    const [updatetodoinput, setupdatetodoinput] = React.useState('')
+
+    const [todoinputarr, settodoinputarr] = React.useState([])
+    const [todoinputarr1, settodoinputarr1] = React.useState({})
+
+    const [display, setdisplay] = React.useState(false)
+    const [editing, setediting] = React.useState(false)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        settodoinputarr([...todoinputarr, todoinput])
+
+        setdisplay(true)
+        console.log(todoinputarr)
+
+        settodoinput("")
+    }
+
+
+
+
+    // function findArrayElementByTitle(todoinputarr, title) {
+    //     return todoinputarr.find((element) => {
+    //       return element.id === title ? "same ": "nor same";
+    //     //   console.log(element.id)
+
+    //     })
+        
+    //   }
+
+
+    
+    
+    
+      const handleUpdate = (id, todo) => {
+        console.log(id)
+        console.log(todo)
+        console.log(todoinputarr)
+        setediting(true)
+        setupdatetodoinput(todoinputarr[id])
+
+
+
+    }
+
+
+    const handleEditSubmit = (e,id) => {
+        e.preventDefault();
+        console.log(updatetodoinput)
+        // const inputId=e.target.elements[0].id;
+        // console.log("input id is"+inputId)
+        setupdatetodoinput("")
+
+        console.log("the array is"+todoinputarr)
+        setediting(false)
+// handleUpdatesubmit(id,a)
+        // const updatedItem = todoinputarr.map((todo) => {
+        //     return odo.id === id ? todo : todoinputarr;
+        //   });
+        // settodoinputarr(updatedItem)
+
+        // findArrayElementByTitle(todoinputarr,updatetodoinput)
+    }
+
+    const handleUpdateChange = (e) => {
+        setupdatetodoinput(e.target.value)
+
+
+
+
+    }
+    const handleChange = (e) => {
+        settodoinput(e.target.value)
+    }
+    return (
+        <div>
+            <h2>Todo Form</h2>
+
+
+            {editing ? <div>
+
+                <div>
+
+                    <form onSubmit={handleEditSubmit}>
+                        <input type="text" placeholder="todo app" value={updatetodoinput} onChange={handleUpdateChange} required /><br />
+                        <button>submit</button>
+
+                    </form>
+                    {/* 
+
+<div>
+    {display ? <div>  {todoinputarr.map((todo, id) => <div key={id}>
+
+        {todo}<button onClick={()=>handleUpdate(id,todo)}>update</button> <button>delete</button>
+
+    </div>)}          </div> : ""}
+</div>
+ */}
+
+                </div>
+            </div> : <div>
+
+                <div>
+
+                    <form onSubmit={handleSubmit}>
+                        <input type="text" placeholder="todo app" value={todoinput} onChange={handleChange} required /><br />
+                        <button>submit</button>
+
+                    </form>
+
+                </div>
+
+            </div>}
+
+            {
+                <div>
+                    {display ? <div>  {todoinputarr.map((todo, id) => <div key={id}>
+                        {todo}<button onClick={() => handleUpdate(id, todo)}>update</button> <button>delete</button>
+
+                    </div>)}          </div> : ""}
+                </div>
+            }
+        </div>
+    )
+}
+
+export default App
